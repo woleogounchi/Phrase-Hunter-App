@@ -4,20 +4,24 @@
 
 // We declare the Game class
 class Game {
-    constructor() {
-        this.missed = 0;
-        this.phrases = [];
-        this.activePhrase = null;
-    }
-    set createPhrases(phrases);
-
-    /**
-     * Creates phrases for use in game
-     * @return {array} An array of phrases that could be used in the game 
-     */
-    createPhrases() {
-        return new Phrase([
-            '', '', '', '', ''
-        ]);
+    constructor(missed = 0,
+            phrases = [new Phrase('all that glitters'),
+                new Phrase('jack of all trades'),
+                new Phrase('down to earth'),
+                new Phrase('what goes arround'),
+                new Phrase('give a man a fish')
+            ],
+            activePhrase = null) {
+            this.missed = missed;
+            this.phrases = phrases;
+            this.activePhrase = activePhrase;
+        }
+        /**
+         * Selects random phrase from phrases property
+         * @return {Object} Phrase object chosen to be used
+         */
+    getRandomPhrase() {
+        return this.phrases[Math.floor(Math.random() * this.phrases.length)];
     };
-}
+
+};
