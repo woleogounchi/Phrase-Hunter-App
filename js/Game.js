@@ -24,4 +24,77 @@ class Game {
         return this.phrases[Math.floor(Math.random() * this.phrases.length)];
     };
 
+    /**
+     * Begins game by selecting a random phrase and displaying it to user
+     */
+    startGame() {
+        document.getElementById('overlay').style = 'visibility: hidden';
+        this.activePhrase = this.getRandomPhrase();
+        this.activePhrase.addPhraseToDisplay();
+    }
+
+    /**
+ * Checks for winning move
+ * @return {boolean} True if game has been won, false if game wasn't
+won */
+    checkForWin() {
+        let hidenLetters = document.querySelectorAll('.hide').length;
+        if (hidenLetters == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    /**
+     * Increases the value of the missed property
+     * Removes a life from the scoreboard
+     * Checks if player has remaining lives and ends game if player is out
+     */
+    removeLife() {
+        let liveHearts = document.querySelectorAll('img');
+        let liveHeart = liveHearts[this.missed];
+        liveHeart.src = 'images/lostHeart.png';
+
+        this.missed++;
+
+        if (this.missed === 5) {
+            this.gameOver('lose');
+        }
+    };
+
+    /**
+     * Displays game over message
+     * @param {boolean} gameWon - Whether or not the user won the game
+     */
+    gameOver(gameWon) {
+        if (gameWon === false) {
+            document.getElementById('overlay').className = 'lose';
+            document.getElementById('game-over-message').textContent = 'Sorry, better luck next time!';
+        } else {
+            document.getElementById('overlay').className = 'win';
+            document.getElementById('game-over-message').textContent = 'Great job!';
+        }
+        document.getElementById('overlay').style = 'visibility: visible';
+    };
+
+    /**
+     * Handles onscreen keyboard button clicks
+     * @param (HTMLButtonElement) button - The clicked button element
+     */
+    handleInteraction(button) {
+        if (this.activePhrase) {
+            button.disabled = true;
+            if (this.activePhrase.checkLetter(button.textContent)) {
+                this.activePhrase.showMatchedLetter(button.textContent);
+                button.className = 'chosen';
+                if (this.checkForWin()) {
+                    this.gameOver(true);
+                }
+            } else if (this.activePhrase) {
+                button.className = 'wrong';
+                this.removeLife();
+            }
+        }
+    }
 };

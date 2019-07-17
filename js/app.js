@@ -27,5 +27,25 @@
 // logPhrase(game.getRandomPhrase());
 
 // Test 5
-const game = new Game();
-game.getRandomPhrase().addPhraseToDisplay();
+// const game = new Game();
+// game.getRandomPhrase().addPhraseToDisplay();
+
+// Test 6
+// const game = new Game();
+// game.startGame();
+// console.log(`Active Phrase - phrase: ${game.activePhrase.phrase}`);
+
+let game = new Game();
+document.getElementById('btn__reset').addEventListener('click', () => {
+    game = new Game();
+    game.startGame();
+});
+
+// get all keys
+const keys = document.querySelectorAll('.key');
+// add eventListener to all key elements
+keys.forEach(key => {
+    key.addEventListener('click', () => {
+        game.handleInteraction(key);
+    });
+});

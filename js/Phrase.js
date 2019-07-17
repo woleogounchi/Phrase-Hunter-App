@@ -27,4 +27,23 @@ class Phrase {
             document.querySelector('ul').appendChild(liElement);
         });
     };
+
+    /**
+     * Checks if passed letter is in phrase
+     * @param (string) letter - Letter to check
+     */
+    checkLetter(letter) {
+        return this.phrase.includes(letter);
+    };
+
+    /**
+     * Displays passed letter on screen after a match is found
+     * @param (string) letter - Letter to display
+     */
+    showMatchedLetter(letter) {
+        const letters = document.querySelectorAll('.' + letter);
+        letters.forEach(letterElement => {
+            letterElement.className = 'show letter ' + letter;
+        });
+    };
 }
