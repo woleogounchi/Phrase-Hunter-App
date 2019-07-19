@@ -22,7 +22,7 @@ class Game {
          */
     getRandomPhrase() {
         return this.phrases[Math.floor(Math.random() * this.phrases.length)];
-    };
+    }
 
     /**
      * Begins game by selecting a random phrase and displaying it to user
@@ -44,7 +44,7 @@ won */
         } else {
             return false;
         }
-    };
+    }
 
     /**
      * Increases the value of the missed property
@@ -59,9 +59,46 @@ won */
         this.missed++;
 
         if (this.missed === 5) {
-            this.gameOver('lose');
+            this.gameOver(false);
         }
-    };
+    }
+
+    /**
+     * Remove all `li` elements from the Phrase `ul` element.
+     */
+    resetPhraseOnBoard() {
+        const ulElem = document.getElementsByTagName('UL');
+        while (ulElem.firstChild) {
+            ulElem.removeChild(ulElem.firstChild);
+        }
+    }
+
+    /**
+     * Enable all of the onscreen keyboard buttons and update their CSS class. 
+     */
+    resetLetters() {
+        let keyElements = document.querySelectorAll('.chosen');
+        keyElements.forEach((keyElement) => {
+            keyElement.className = 'key';
+            keyElement.disabled = false;
+        });
+
+        keyElements = document.querySelectorAll('.wrong');
+        keyElements.forEach((keyElement) => {
+            keyElement.className = 'key';
+            keyElement.disabled = false;
+        });
+    }
+
+    /**
+     * Reset all of the heart images. 
+     */
+    resetLives() {
+        const allLives = document.querySelectorAll('img');
+        allLives.forEach(life => {
+            life.src = 'images/liveHeart.png';
+        });
+    }
 
     /**
      * Displays game over message
@@ -76,7 +113,11 @@ won */
             document.getElementById('game-over-message').textContent = 'Great job!';
         }
         document.getElementById('overlay').style = 'visibility: visible';
-    };
+
+        this.resetPhraseOnBoard();
+        this.resetLives();
+        this.resetLetters();
+    }
 
     /**
      * Handles onscreen keyboard button clicks
@@ -97,4 +138,4 @@ won */
             }
         }
     }
-};
+}

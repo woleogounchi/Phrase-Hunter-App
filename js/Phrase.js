@@ -19,7 +19,7 @@ class Phrase {
             const liElement = document.createElement('li');
             liElement.appendChild(textNode);
 
-            if (letter != '') {
+            if (letter != ' ') {
                 liElement.className = 'hide letter ' + letter;
             } else {
                 liElement.className = 'space';
