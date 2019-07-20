@@ -67,7 +67,8 @@ won */
      * Remove all `li` elements from the Phrase `ul` element.
      */
     resetPhraseOnBoard() {
-        const ulElem = document.getElementsByTagName('UL');
+        const phraseDiv = document.getElementById("phrase");
+        const ulElem = phraseDiv.getElementsByTagName("UL")[0];
         while (ulElem.firstChild) {
             ulElem.removeChild(ulElem.firstChild);
         }
